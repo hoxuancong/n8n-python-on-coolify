@@ -10,16 +10,22 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=https://lainao.5mildollar2026.xyz/
+      - N8N_HOST=https://lainao.5mildollar2026.xyz
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://lainao.5mildollar2026.xyz
       - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
     volumes:
-      - n8n_data:/home/node/.n8n
-      - ./python-scripts:/home/node/python-scripts  # Mount thư mục python-scripts vào container
+      - r4cs0osookw4ckw8ogscgocw_n8n-data:/home/node/.n8n
+      - r4cs0osookw4ckw8ogscgocw_python-scripts:/home/node/python-scripts
     labels:
       - "coolify.enabled=true"
-      - "coolify.domain=https://lainao.5mildollar2026.xyz/"  # Cập nhật domain của bạn
+      - "coolify.domain=https://lainao.5mildollar2026.xyz"
 
 volumes:
-  n8n_data:
+  r4cs0osookw4ckw8ogscgocw_n8n-data:
+    external: true
+    name: r4cs0osookw4ckw8ogscgocw_n8n-data
+  r4cs0osookw4ckw8ogscgocw_python-scripts:
+    external: true
+    name: r4cs0osookw4ckw8ogscgocw_python-scripts
