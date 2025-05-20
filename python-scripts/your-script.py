@@ -1,26 +1,19 @@
-from pytube import YouTube
-import moviepy.editor as mp
-from youtube_transcript_api import YouTubeTranscriptApi
+import requests
 
-print("Thư viện pytube, moviepy, youtube-transcript-api đã được cài thành công!")
+# Thực hiện một yêu cầu HTTP GET đến một API
+response = requests.get('https://api.github.com')
 
-# Test pytube: lấy tiêu đề video youtube
-try:
-    yt = YouTube('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-    print("Tiêu đề video:", yt.title)
-except Exception as e:
-    print("Lỗi pytube:", e)
+# Kiểm tra mã phản hồi và in ra một số thông tin
+if response.status_code == 200:
+    print("Yêu cầu thành công!")
+    print("Dữ liệu từ GitHub API:")
+    print(response.json())  # In ra thông tin trả về dưới dạng JSON
+else:
+    print("Yêu cầu không thành công. Mã lỗi:", response.status_code)
 
-# Test moviepy: tạo clip trống 1s và in duration
-try:
-    clip = mp.ColorClip(size=(640, 480), color=(255, 0, 0), duration=1)
-    print("Độ dài clip moviepy:", clip.duration)
-except Exception as e:
-    print("Lỗi moviepy:", e)
+# Thực hiện một phép toán cơ bản
+x = 10
+y = 5
+result = x + y
 
-# Test youtube-transcript-api: lấy phụ đề video (nếu có)
-try:
-    transcript = YouTubeTranscriptApi.get_transcript('dQw4w9WgXcQ')
-    print("Đoạn phụ đề đầu tiên:", transcript[0])
-except Exception as e:
-    print("Lỗi youtube-transcript-api:", e)
+print(f"10 + 5 = {result}")
