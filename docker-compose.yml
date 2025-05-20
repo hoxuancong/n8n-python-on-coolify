@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  n8n:
+    container_name: n8n
+    build:
+      context: .  # Đọc Dockerfile trong thư mục hiện tại
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5678:5678"  # Mở port 5678 cho n8n
+    environment:
+      - N8N_HOST=https://duociku.5mildollar2026.xyz  # Đặt tên miền của bạn
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - WEBHOOK_URL=https://duociku.5mildollar2026.xyz
+      - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
+    volumes:
+      - n8n_data:/home/node/.n8n  # Volume cho dữ liệu n8n
+      - ./python-scripts:/home/node/python-scripts  # Mount thư mục chứa scripts và requirements.txt
+    labels:
+      - "coolify.enabled=true"
+      - "coolify.domain=https://duociku.5mildollar2026.xyz"
+    command: >
+      /bin/sh -c "source /home/node/venv/bin/activate && n8n start"  # Kích hoạt virtualenv khi chạy n8n
+
+volumes:
+  n8n_data:
+    driver: local  # Volume dữ liệu của n8n
