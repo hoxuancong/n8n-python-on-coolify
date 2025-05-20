@@ -2,37 +2,29 @@ FROM n8nio/n8n:latest
 
 USER root
 
-# Cài gói cần thiết
+# Cài đặt các phụ thuộc
 RUN apk add --no-cache \
-    python3 \
+    ffmpeg \
+    python3-dev \
     py3-pip \
-    py3-virtualenv \
+    py3-fire \
     build-base \
     musl-dev \
     linux-headers \
     libffi-dev \
-    bash \
-    ffmpeg
+    bash
 
-# Tạo virtualenv với quyền root
+# Cài đặt môi trường ảo
 RUN python3 -m venv /home/node/venv
 
-# Gán quyền thư mục venv cho user node (cả thư mục con)
-RUN chown -R node:node /home/node/venv
-
-# Chuyển user về node
 USER node
 
-# Thiết lập PATH để dùng virtualenv
-ENV PATH="/home/node/venv/bin:$PATH"
-
-# Copy script và requirements.txt, đảm bảo quyền node
+# Copy mã nguồn Python vào container
 COPY --chown=node:node ./python-scripts/ /home/node/python-scripts/
 
-# Cài các python package trong requirements.txt bằng pip của venv (user node có quyền ghi)
+# Cài đặt các thư viện trong requirements.txt
 RUN pip install --upgrade pip setuptools wheel && \
     pip install --no-cache-dir -r /home/node/python-scripts/requirements.txt
 
-WORKDIR /home/node
-
+# Chạy n8n
 CMD ["n8n"]
