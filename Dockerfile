@@ -5,6 +5,8 @@ USER root
 RUN apk add --no-cache \
     ffmpeg \
     python3-dev \
+    py3-pip \
+    py3-fire \
     build-base \
     musl-dev \
     linux-headers \
