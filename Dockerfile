@@ -20,11 +20,11 @@ RUN apk add --no-cache \
 # Sao chép các tập tin Python scripts vào container
 COPY --chown=node:node ./python-scripts/ /home/node/python-scripts/
 
-# Cài đặt các thư viện Python từ requirements.txt trong virtualenv
+# Cài đặt các thư viện Python từ requirements.txt
 RUN /home/node/venv/bin/pip install --no-cache-dir -r /home/node/python-scripts/requirements.txt
 
 # Thiết lập người dùng về node để tránh vấn đề quyền truy cập
 USER node
 
-# CMD để khởi chạy n8n
-CMD ["n8n"]
+# Đảm bảo rằng n8n có thể chạy đúng lệnh
+ENTRYPOINT ["/home/node/.n8n/n8n"]
