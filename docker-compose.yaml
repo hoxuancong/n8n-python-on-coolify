@@ -15,13 +15,14 @@ services:
       - N8N_PROTOCOL=https
       - WEBHOOK_URL=https://lainao.5mildollar2026.xyz
       - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
-      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false  # Tắt kiểm tra quyền của file cấu hình
     volumes:
       - r4cs0osookw4ckw8ogscgocw_n8n-data:/home/node/.n8n
       - r4cs0osookw4ckw8ogscgocw_python-scripts:/home/node/python-scripts
     labels:
       - "coolify.enabled=true"
       - "coolify.domain=https://lainao.5mildollar2026.xyz"
+    command: ["n8n", "start"]  # Khởi chạy lệnh n8n khi container được chạy
 
 volumes:
   r4cs0osookw4ckw8ogscgocw_n8n-data:
