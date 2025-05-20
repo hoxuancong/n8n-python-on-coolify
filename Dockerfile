@@ -4,6 +4,7 @@ USER root
 
 RUN apk add --no-cache \
     python3 \
+    python3-dev \
     py3-pip \
     py3-fire \
     build-base \
@@ -19,5 +20,4 @@ USER node
 
 COPY ./python-scripts/ /home/node/python-scripts/
 
-# Bỏ dòng nâng cấp pip để tránh lỗi
 RUN pip3 install --break-system-packages -r /home/node/python-scripts/requirements.txt
