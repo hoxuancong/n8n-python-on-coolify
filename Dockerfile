@@ -1,15 +1,15 @@
-# Sử dụng phiên bản mới nhất của n8n từ Docker Hub
 FROM n8nio/n8n:latest
 
-# Cài đặt các gói cần thiết (Python, pip và các thư viện hỗ trợ)
+# Cài đặt Python3 và tạo liên kết "python" trỏ đến "python3"
 USER root
-RUN apk add --update python3 py3-pip py3-fire
+RUN apk add --update python3 py3-pip py3-fire \
+    && ln -s /usr/bin/python3 /usr/bin/python
 
-# Quay lại user node để tiếp tục cài đặt các phần mềm liên quan đến n8n
+# Chuyển lại sang người dùng node
 USER node
 
-# Sao chép thư mục python-scripts từ máy chủ vào container
+# Sao chép các tệp Python scripts vào container
 COPY ./python-scripts/ /home/node/python-scripts/
 
-# Cài đặt các thư viện Python cần thiết từ file requirements.txt
+# Cài đặt các thư viện cần thiết
 RUN pip3 install -r /home/node/python-scripts/requirements.txt --break-system-packages
