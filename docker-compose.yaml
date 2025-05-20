@@ -17,7 +17,7 @@ services:
       - "5678:5678"
     volumes:
       - n8n_data:/home/node/.n8n
-      - ./python-scripts:/home/node/python-scripts
+      - ./python-scripts:/home/node/python-scripts  # Đảm bảo volume này được thiết lập đúng
 
 volumes:
   n8n_data:
