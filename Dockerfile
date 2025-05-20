@@ -1,8 +1,10 @@
-# Sử dụng image chính thức của n8n
+# Chọn image chính thức của n8n
 FROM n8nio/n8n:latest
 
-# Cài đặt thư viện Python và các phụ thuộc
+# Cài đặt Python và các thư viện cần thiết
 USER root
+
+# Cài đặt Python và các gói hỗ trợ
 RUN apk add --no-cache \
     python3-dev \
     py3-pip \
@@ -12,20 +14,17 @@ RUN apk add --no-cache \
     linux-headers \
     libffi-dev \
     bash \
-    ffmpeg
+    && python3 -m venv /home/node/venv \
+    && /home/node/venv/bin/pip install --upgrade pip setuptools wheel
 
-# Tạo một virtualenv và cài đặt pip, setuptools, wheel
-RUN python3 -m venv /home/node/venv
-RUN /home/node/venv/bin/pip install --upgrade pip setuptools wheel
-
-# Copy thư mục python-scripts vào container
+# Sao chép các tập tin Python scripts vào container
 COPY --chown=node:node ./python-scripts/ /home/node/python-scripts/
 
 # Cài đặt các thư viện Python từ requirements.txt
 RUN /home/node/venv/bin/pip install --no-cache-dir -r /home/node/python-scripts/requirements.txt
 
-# Sử dụng người dùng node
+# Thiết lập người dùng về node để tránh vấn đề quyền truy cập
 USER node
 
-# Chạy n8n
+# CMD để khởi chạy n8n
 CMD ["n8n"]
