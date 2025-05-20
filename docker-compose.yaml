@@ -10,7 +10,7 @@ services:
     ports:
       - "5678:5678"
     environment:
-      - N8N_HOST=đuociku.5mildollar2026.xyz
+      - N8N_HOST=duociku.5mildollar2026.xyz
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
       - WEBHOOK_URL=https://duociku.5mildollar2026.xyz/
