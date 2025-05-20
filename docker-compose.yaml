@@ -17,6 +17,7 @@ services:
       - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
     volumes:
       - n8n_data:/home/node/.n8n
+      - ./python-scripts:/home/node/python-scripts
     labels:
       - "coolify.enabled=true"
       - "coolify.domain=duociku.5mildollar2026.xyz"
