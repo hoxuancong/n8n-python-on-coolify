@@ -2,32 +2,21 @@ version: '3.8'
 
 services:
   n8n:
+    pull_policy: always
+    image: n8nio/n8n:latest   # Sử dụng bản n8n mới nhất
     container_name: n8n
-    build:
-      context: .
-      dockerfile: Dockerfile
     restart: always
-    ports:
-      - "5678:5678"
     environment:
-      - N8N_HOST=https://lainao.5mildollar2026.xyz
+      - N8N_HOST=https://duociku.5mildollar2026.xyz/  # Thay "your-domain.com" bằng tên miền của bạn
       - N8N_PORT=5678
-      - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://lainao.5mildollar2026.xyz
-      - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
-      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
+      - N8N_PROTOCOL=https            # Nếu bạn dùng HTTPS, nếu không thì dùng http
+      - N8N_SECURE_COOKIE=true        # Chắc chắn bật cookie bảo mật khi chạy trên tên miền
+      - GENERIC_TIMEZONE=Europe/Bucharest
+    ports:
+      - "5678:5678"  # Cổng mở để truy cập giao diện n8n
     volumes:
-      - r4cs0osookw4ckw8ogscgocw_n8n-data:/home/node/.n8n
-      - r4cs0osookw4ckw8ogscgocw_python-scripts:/home/node/python-scripts
-    command: ["n8n", "start"]  # Đảm bảo chạy n8n ở chế độ start
-    labels:
-      - "coolify.enabled=true"
-      - "coolify.domain=https://lainao.5mildollar2026.xyz"
+      - n8n_data:/home/node/.n8n
+      - ./python-scripts:/home/node/python-scripts
 
 volumes:
-  r4cs0osookw4ckw8ogscgocw_n8n-data:
-    external: true
-    name: r4cs0osookw4ckw8ogscgocw_n8n-data
-  r4cs0osookw4ckw8ogscgocw_python-scripts:
-    external: true
-    name: r4cs0osookw4ckw8ogscgocw_python-scripts
+  n8n_data:
