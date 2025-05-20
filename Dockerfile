@@ -17,4 +17,4 @@ USER node
 
 COPY ./python-scripts/ /home/node/python-scripts/
 
-RUN pip3 install --break-system-packages -r /home/node/python-scripts/requirements.txt
+RUN pip3 install --no-cache-dir --break-system-packages -r /home/node/python-scripts/requirements.txt
