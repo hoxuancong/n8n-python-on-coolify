@@ -13,10 +13,16 @@ services:
       - N8N_HOST=duociku.5mildollar2026.xyz
       - N8N_PORT=5678
       - N8N_PROTOCOL=https
-      - WEBHOOK_URL=https://duociku.5mildollar2026.xyz/
+      - WEBHOOK_URL=https://đuociku.5mildollar2026.xyz/
       - GENERIC_TIMEZONE=Asia/Ho_Chi_Minh
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin123
     volumes:
-      - ./data:/home/node/.n8n
+      - n8n_data:/home/node/.n8n
     labels:
       - "coolify.enabled=true"
-      - "coolify.domain=duociku.5mildollar2026.xyz"
+      - "coolify.domain=đuociku.5mildollar2026.xyz"
+
+volumes:
+  n8n_data:
